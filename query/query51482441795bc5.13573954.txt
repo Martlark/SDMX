@@ -1,0 +1,6 @@
+name=create
+query0={"qAnd":[{"component":"PROVIDER_FM_ID","value":"DFR"},{"component":"DATA_TYPE_FM","value":"LEV"}],"qOr":[],"startTime":"2000-03-01","endTime":"2013-03-01","dataSetId":"2136672"}
+title=Interest rates raw data level - DFR
+options={"titleAdd":"","startTime":"2000-03-01","endTime":"2013-03-01"}
+breakField=REF_AREA
+name=Interest rates raw data level - DFR

@@ -1,0 +1,5 @@
+name=save
+query0={"qAnd":[{"component":"GOVNT_ST_SUFFIX","value":"E"}],"qOr":[],"startTime":"2000-03-01","endTime":"2013-03-01","dataSetId":"9386115"}
+title=Selected EU states Govt. expenditure (1000s)
+options={"titleAdd":"","startTime":"2000-03-01","endTime":"2013-03-01","perCapita":true,"map":true}
+name=Map - Selected EU states Govt. expenditure (1000s) per capita

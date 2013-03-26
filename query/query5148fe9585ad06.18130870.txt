@@ -1,0 +1,6 @@
+name=create
+query0={"qAnd":[{"component":"FREQ","value":"M"}],"qOr":[],"startTime":"","endTime":"","dataSetId":"9038785"}
+title=9038785 Financial market data - Oil price by REF_AREA
+options={"perCapita":false}
+breakField=REF_AREA
+name=9038785 Financial market data - Oil price by REF_AREA

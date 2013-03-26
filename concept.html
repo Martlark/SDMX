@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=7,IE=9">
+	<!--The viewport meta tag is used to improve the presentation and behavior of the samples
+	on iOS devices-->
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+	<title>ECB SDMX concept #objectid#</title>
+
+	<link rel="stylesheet" type="text/css" href="pages.css">
+
+	<script>var dojoConfig = { isDebug: true };var dataFlowId = '#dataflowid#';</script>
+	<script src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.2/"></script>
+	<script type="text/javascript" src="jssaxparser/sax.js"></script>
+	<script type="text/javascript" src="jssaxparser/DefaultHandlers.js"></script>
+	<script src="index.js"></script>
+	<script src="pages.js"></script>
+	<script>
+    dojo.require("dojox.xml.parser");
+
+    dojo.ready(function() 
+	{
+		prototypeExtensions();
+		dojo.byId("content").value = "";
+		call_concept_ws();
+    });
+	</script>
+</head>
+
+<body style="font-family: Arial Unicode MS,Arial,sans-serif;">
+  <p>
+    <label for='dataflowid'>Concept ID</label><input type='text' id='objectid' value='#objectid#'></input>
+    <input type="button" value="Lookup" onclick="call_concept_ws();" />
+    <span id="status"></span>
+  </p>
+  <p>Results:
+    <textarea id="content" class='bigbox'></textarea>
+	<div id='results'>Querying results. Please wait...</div>
+  </p>
+</body>
+</html>

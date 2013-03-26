@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=7,IE=9">
+        <!--The viewport meta tag is used to improve the presentation and behavior of the samples
+          on iOS devices-->
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+        <title id='headTitle'></title>
+
+        <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/dojo/dijit/themes/claro/claro.css">
+        <link rel="stylesheet" href="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/js/esri/css/esri.css">
+        <link rel="stylesheet" href="pages.css" type="text/css">
+        <link rel='stylesheet' href='mediaqueries.css' type='text/css'>
+
+        <script type="text/javascript" src="http://serverapi.arcgisonline.com/jsapi/arcgis/3.3/"></script>
+        <script>var dojoConfig = {parseOnLoad: true};</script>
+        <script type="text/javascript" src="jssaxparser/sax.js"></script>
+        <script type="text/javascript" src="jssaxparser/DefaultHandlers.js"></script>
+        <script src="index.js"></script>
+        <script src="pages.js"></script>
+        <script src="mapResult.js"></script>
+        <script src="queryResult.js"></script>
+        <script src="RainbowVis-JS-master/rainbowvis.js"></script>
+
+        <script>
+            dojo.ready(function() {
+                initMapResults()
+            });
+        </script>
+    </head>
+
+    <body class="claro" >
+        <div>
+            <h1 id='h1Title'></h1>
+
+            <input type='text' class='saveQuery' id='query0' value='#query0#' style='display:none'/>
+            <input type='text' class='saveQuery' id='title' value='#title#' style='display:none'/>
+            <input type='text' class='saveQuery' id='options' value='#options#' style='display:none'/>
+            <div id='executing' class='executing'>Query is being processed.  Please wait.<img src='ajax_loader_blue_256.gif'/></div>
+
+            <!-- next two classes will be float:left by css -->
+
+            <div class='mapMainTable'>
+
+                <div class='mapKey' id='keyTable'></div>
+                <div class='mapMap' id="map"></div>
+
+            </div>
+
+            <div class='mapTimeLine'>
+                <h2 id='currentTimePeriod'></h2>
+                <input type='button' id='sliderPlay' onclick="sliderPlay();" value='Play' />
+                <div id='slider'></div>
+                <h3>Click on an area in the map to add it to the chart</h3>
+                <div id="chart" class='mapChart'></div>
+                <div id='chartLegend'></div>
+            </div>
+
+            <div class='mapFooter'>
+                <!-- debugging information -->
+                <div id='windowDimensions'></div>
+                <input type="button" value="Save" onclick="call_create_query();" />
+                <label for='name'>Query Name:</label><input type='text' class="saveName saveQuery" id='name'/>
+                <textarea id="content" style='display:none' class='bigbox'></textarea>
+            </div>
+        </div>
+    </body>
+
+</html>
+

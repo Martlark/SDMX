@@ -1,0 +1,7 @@
+name=create
+query0={"qAnd":[{"component":"GOVNT_ST_SUFFIX","value":"E"}],"qOr":[{"component":"REF_AREA","value":"AT"},{"component":"REF_AREA","value":"BE"},{"component":"REF_AREA","value":"BG"},{"component":"REF_AREA","value":"FR"},{"component":"REF_AREA","value":"GB"},{"component":"REF_AREA","value":"DE"},{"component":"REF_AREA","value":"DK"},{"component":"REF_AREA","value":"IT"},{"component":"REF_AREA","value":"ES"}],"startTime":"2000-01-01","endTime":"2011-11-01","dataSetId":"9386099"}
+query1={"qAnd":[{"component":"GOVNT_ST_SUFFIX","value":"E"}],"qOr":[{"component":"REF_AREA","value":"AT"},{"component":"REF_AREA","value":"BE"},{"component":"REF_AREA","value":"BG"},{"component":"REF_AREA","value":"FR"},{"component":"REF_AREA","value":"GB"},{"component":"REF_AREA","value":"DE"},{"component":"REF_AREA","value":"DK"},{"component":"REF_AREA","value":"IT"},{"component":"REF_AREA","value":"ES"}],"startTime":"2000-01-01","endTime":"2011-11-01","dataSetId":"9386115"}
+title=Govt Revenue minus Govt Expenditure 2000 - 2013
+options={"perCapita":true,"chartOptions":{"xAxis":"1","yAxis":"0","bubble":"xMinusy","title0":"Revenue","title1":"Expenditure","title2":""}}
+breakField=REF_AREA
+name=Govt Revenue minus Govt Expenditure 2000 - 2013

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<!-- this page is used to open the home.html page using the r template manager
+and also by the query shortener to open short urls
+replace with a jsp page or php page as required.
+-->
+<html>
+    <head>
+        <script src="//ajax.googleapis.com/ajax/libs/dojo/1.8.3/dojo/dojo.js"></script>
+        <script src='pages.js'></script>
+        <script>
+            window.location = getRpage() + '?home.html';
+        </script>
+    </head>
+    <body>
+        Redirecting.   <a href="r.php?home.html">Click here</a> if nothing happens.
+        NOTE: JavaScript is required to access and use these pages.
+    </body>
+</html>

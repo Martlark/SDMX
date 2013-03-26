@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title id='headTitle'></title>
+        <link rel="stylesheet" type="text/css" href="pages.css">
+        <!--#head.html#-->
+        <!-- google charting scripts -->
+        <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+        <script src="queryResult.js"></script>
+        <script>
+            google.load("visualization", "1", {packages: ["corechart"]});
+            dojo.ready(function()
+            {
+                queryResultsInit();
+            });
+        </script>
+    </head>
+
+    <body class="claro">
+        <h1 id='h1Title'></h1>
+        <br/>
+        <input type='text' class="saveQuery" id='query0'  value='#query0#'  style='display:none'/>
+        <input type='text' class="saveQuery" id='query1'  value='#query1#'  style='display:none'/>
+        <input type='text' class="saveQuery" id='query2'  value='#query2#'  style='display:none'/>
+        <input type='text' class="saveQuery" id='title'   value='#title#'   style='display:none'/>
+        <input type='text' class="saveQuery" id='options' value='#options#' style='display:none'/>
+        <input type='text' class="saveQuery" id='breakField'   value='#breakField#'   style='display:none'/>
+
+        <div id='executing' class='executing'>Query is being processed.  Please wait.<img src='ajax_loader_blue_256.gif'/></div>
+
+        <div data-dojo-type="dijit/layout/TabContainer" id='tabMain' style="width: 100%; height: 800px;" tabStrip="true">
+
+            <div data-dojo-type="dijit/layout/ContentPane" title="Visulisation" id="tabChartResults0" >
+                <div>
+
+                    <div id='multiControls' >
+                        <div id="multiButtons" class='hideOnLoad'>
+                            <input type='button' value='Redraw' onclick='multiRedraw();' style="float:left;"/>
+                            <input type='button'  style="float:left;" id='sliderPlay' onclick="sliderPlayQuery();" value='Play'/>
+                            <label for="yAxis">Y Axis value: </label><div id='yAxis'></div>
+                            <label for="bubble">Bubble value: </label><div id='bubble'></div>
+                            <h3 id='multiInstructions'>Choose from the axis options and click Redraw to show the chart</h3>
+                        </div>
+                        <div id='sliderStuff' >
+                            <div id='slider'></div>
+                        </div>
+                        <div id="multiChart" style="height: 600px;"></div>
+                        <div id="multiChartLegend"></div>
+                    </div>
+                </div>
+                <div id='chart0'>
+                    <div id="resultsChart0" style="height: 600px;"></div>
+                    <div id="resultsChart0Legend"></div>
+                </div>
+            </div>
+
+
+            <div data-dojo-type="dijit/layout/ContentPane" title="Query Results 1" id="tabQueryResults0" >
+                <p id='queryTitle0'></p>
+                <input type="button" value="Save" class='hideOnLoad' onclick="call_create_query();" />
+                <label class='hideOnLoad' for='name'>Query Name:</label><input type='text' class="hideOnLoad saveName saveQuery" id='name'/>
+                <label class='hideOnLoad' for='title0'>Chart Axis Title:</label><input class='hideOnLoad' type='text' id='title0'/>
+                <div id="queryResultsGrid0" class='queryResultsGrid'></div>
+            </div>
+
+            <div data-dojo-type="dijit/layout/ContentPane" title="Query Results 2" id="tabQueryResults1" >
+                <p id='queryTitle1'></p>
+                <label class='hideOnLoad' for='title1'>Chart Axis Title:</label><input class='hideOnLoad' type='text' id='title1'/>
+                <div id="queryResultsGrid1" class='queryResultsGrid'></div>
+            </div>
+
+            <div data-dojo-type="dijit/layout/ContentPane" title="Query Results 3" id="tabQueryResults2" >
+                <p id='queryTitle2'></p>
+                <label class='hideOnLoad' for='title2'>Chart Axis Title:</label><input class='hideOnLoad' type='text' id='title2'/>
+                <div id="queryResultsGrid2" class='queryResultsGrid'></div>
+            </div>
+
+        </div>
+
+        <textarea id="content" style='display:none' class='bigbox'></textarea>
+        <textarea id="dataResults" style='display:none' class='bigbox'></textarea>
+
+    </body>
+</html>
