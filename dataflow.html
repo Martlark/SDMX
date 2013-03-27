@@ -5,9 +5,9 @@
 
         <link rel="stylesheet" type="text/css" href="pages.css">
         <!--#head.html#-->
+		<script src="dataflow.js"></script>
         <script>
 			dojo.ready(function() {
-				prototypeExtensions();
 				setup_dataflow_grid(0);
 				setup_dataflow_grid(1);
 				call_dataflow_ws(0);
@@ -37,7 +37,7 @@
                             <label for='objectid0'>Data flow ID 1</label></td><td><input type='text' id='objectid0' value='#objectid#'/>
                         </td>
                         <td>
-                            <input type="button" value="Lookup" onclick="call_dataflow_ws('objectid0', grid);" />
+                            <input type="button" value="Lookup" onclick="call_dataflow_ws(0);" />
                         </td>
                     </tr>
                     <tr>

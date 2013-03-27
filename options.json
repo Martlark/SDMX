@@ -1,0 +1,8 @@
+{
+	"name": "Andrew Rowe",
+	"proxy": "proxy.php",
+	"r": "r.php",
+	"query": "query.php",
+	"title": "ECB SDMX",
+	"breakField": "REF_AREA"
+}

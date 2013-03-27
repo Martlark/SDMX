@@ -355,15 +355,16 @@ function deleteLocalStorageEntry() {
 function localStorageSetStore(grid) {
     var localItems = [];
 
-    var count = 0;
+    var count = 0, bytes = 0;
     for (var z in localStorage) {
         localItems.push({index: count, size: localStorage[z].length, key: z, query: localStorage[z]});
         count++;
+        bytes += localStorage[z].length;
     }
 
     var store = new dojo.data.ItemFileWriteStore({data: {items: localItems}});
     grid.setStore(store);
-    dojo.byId('foundCount').innerHTML = "found {0}".format(count)
+    dojo.byId('foundCount').innerHTML = "found {0}, {1} megabytes used.".format(count, Math.round(bytes / (1024 * 1024)));
 }
 
 function viewLocalStorageEntry(entryKey) {
