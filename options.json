@@ -4,5 +4,7 @@
 	"r": "r.php",
 	"query": "query.php",
 	"title": "ECB SDMX",
-	"breakField": "REF_AREA"
+	"baseURL": "http://martlark.org/SDMX/",
+	"breakField": "REF_AREA",
+	"sdmxWS": "http://sdw-ws.ecb.europa.eu/services/SDMXQuery"
 }

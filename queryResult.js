@@ -333,7 +333,12 @@ function queryResultsCountDataPoints(breakValue, data) {
 	}
 	return dataPoints;
 }
-
+/***
+ *
+ * @param {type} query the JSON query definition.
+ * @param {type} queryNumber number of the query to be used to find controls
+ * @returns {Boolean} true when results are set.
+ */
 function addQueryResults(query, queryNumber) {
 // if the xmlhttp is a XMLHttpRequest object then parse the result
 // otherwise it is probably a stored data object.
@@ -350,16 +355,28 @@ function addQueryResults(query, queryNumber) {
 		var soap = build_dataflow_soap(query);
 		if (soap) {
 			xmlhttp = call_ecb_sdmx_ws_sync(soap, 'GetGenericData');
+			if (!xmlhttp) {
+				return false;
+			}
 			sdmxDataList[queryNumber] = parseQueryDataResponse(xmlhttp, breakField);
 			storeJSON(key, sdmxDataList[queryNumber]);
 		}
+		else {
+			return false;
+		}
 	}
+	return true;
 }
-
+/***
+ * populate the table grid with the results in the sdmxDataList
+ * @param {type} queryNumber the query result index to be used
+ * @returns {Boolean} true when it worked
+ */
 function tableResults(queryNumber) {
 // if the xmlhttp is a XMLHttpRequest object then parse the result
 // otherwise it is probably a stored data object.
 	var sdmxData = sdmxDataList[queryNumber];
+
 	if (!sdmxData || !sdmxData.data || sdmxData.data.length == 0) {
 		alert('No results found');
 		return false;
@@ -375,6 +392,7 @@ function tableResults(queryNumber) {
 	var gridResults = new dojox.grid.DataGrid({structure: structure}, "queryResultsGrid{0}".format(queryNumber));
 	gridResults.startup();
 	gridResults.setStore(store);
+	return true;
 }
 
 
@@ -416,7 +434,9 @@ function queryResultsInit() {
 				var query = JSON.parse(decodeURIComponent(value));
 				// see if a result seems valid for this
 				if (query && query.dataSetId) {
-					addQueryResults(query, queryNumber);
+					if (!addQueryResults(query, queryNumber)) {
+						return;
+					}
 					tableResults(queryNumber);
 				} else {
 					console.log('{0} not valid'.format(queryId));
@@ -489,32 +509,46 @@ function build_dataflow_soap(query) {
 	}
 	return soap;
 }
-
-/**
- * Comment
+/***
+ *
+ * @param {Stirng} url that you want shown in FaceBook like
+ * @returns {null} Nothing
  */
-function shorten() {
-// unused
-	var href = location.href;
-	var parts = href.split('?');
-	if (parts.length == 2) {
-		var uri = encodeURI(parts[0]); // make sure the name is encoded.
-		xmlhttp = new XMLHttpRequest();
-		var url = '{0}?method=shorten&uri={1}'.format(getQuerypage(), uri);
-		//console.log(url);
-		xmlhttp.open('GET', url, false);
-		xmlhttp.send();
-		if (xmlhttp.status == 200) {
-			return  xmlhttp.responseText;
-		}
-		else {
-			alert('Error shorten:' + xmlhttp.responseText);
-		}
+function setFaceBookUrl(url)
+{
+	// http://stackoverflow.com/questions/2764129/update-fblike-url-dynamically-using-javascript
+	// https://developers.facebook.com/docs/reference/plugins/like/
+
+	var frame = '<iframe id="face" name="face" \
+				src="http://www.facebook.com/plugins/like.php?href=#http#&layout=button_count&show_faces=false&width=400&action=like&font=arial&colorscheme=light"\\n\
+				allowtransparency="true" \
+				style="border: medium none; overflow: auto; width: 400px; height: 21px;" frameborder="0" scrolling="no"> \
+		</iframe>';
+
+	frame = frame.replace('#http#', url);
+	document.getElementById('facebookFrame').innerHTML = frame;
+	//alert("url : "+url);
+}
+
+function shareQuery(href) {
+	var uri = encodeURIComponent(href); // make sure the name is encoded.
+	var url = '{0}?method=shorten&uri={1}'.format(getQuerypage(), uri);
+
+	//console.log(url);
+	var xmlhttp = new XMLHttpRequest();
+	xmlhttp.open('GET', url, false);
+	xmlhttp.send();
+	if (xmlhttp.status == 200) {
+		var short = xmlhttp.responseText;
+		var shortUrl = globalOptions.baseURL + short;
+
+		setFaceBookUrl(shortUrl);
+		dojo.style(dojo.byId('shareFrame'), 'display', 'block');
+		//dojo.style(dojo.byId('shareButton'), 'display', 'none');
 	}
 	else {
-		alert('Cannot shorten:{0}'.format(href));
+		alert('Error shorten:' + xmlhttp.responseText);
 	}
-	return null;
 }
 
 /**
@@ -927,4 +961,49 @@ function sliderPlayQuery() {
 	} else {
 		stop(); // stop timer
 	}
+}
+/**
+ * Export the contents fo the given grid
+ */
+function exportData(sdmxData) {
+	var s = sdmxData.columns.join(',');
+
+	s += '\n';
+
+	function JSONjoin(o, delim) {
+		var text = [];
+
+		for (var v in o) {
+			var itemValue = o[v];
+
+			if (typeof(itemValue) == 'string') {
+				itemValue = itemValue.indexOf(delim) > -1 ? '"' + itemValue + '"' : itemValue;
+			}
+			text.push(itemValue);
+		}
+		return text.join(delim);
+	}
+
+	for (var d in sdmxData.data) {
+		s += JSONjoin(sdmxData.data[d], ',') + '\n';
+	}
+	//http://stackoverflow.com/questions/3499597/javascript-jquery-to-download-file-via-post-with-json-data?lq=1
+	var http = new XMLHttpRequest();
+
+	var url = "query.php?method=download&filetype=csv";
+	http.open("POST", url, true);
+
+//Send the proper header information along with the request
+	http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+	http.onreadystatechange = function() {//Call a function when the state changes.
+		if (http.readyState == 4 && http.status == 200) {
+			// next bit will initiate a download
+			var iframe = document.createElement("iframe");
+			iframe.setAttribute("src", http.responseText);
+			iframe.setAttribute("style", "display: none");
+			document.body.appendChild(iframe);
+		}
+	};
+	http.send(s);
 }

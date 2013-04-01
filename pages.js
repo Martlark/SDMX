@@ -1172,8 +1172,37 @@ function saveQuery(values) {
 	}
 }
 
+// displays the window dimensions on a window to assist with stuff.
+function windowDimensions(controlId) {
+	var winW = 630, winH = 460;
+	if (document.body && document.body.offsetWidth) {
+		winW = document.body.offsetWidth;
+		winH = document.body.offsetHeight;
+	}
+	if (document.compatMode == 'CSS1Compat' &&
+			document.documentElement &&
+			document.documentElement.offsetWidth) {
+		winW = document.documentElement.offsetWidth;
+		winH = document.documentElement.offsetHeight;
+	}
+	if (window.innerWidth && window.innerHeight) {
+		winW = window.innerWidth;
+		winH = window.innerHeight;
+	}
+	var div = dojo.byId(controlId);
+	if (div) {
+		div.innerHTML = '{0} x {1}'.format(winW, winH);
+	}
+}
+
 function setGlobalOptions() {
-	var xmlhttp = new XMLHttpRequest();
+	var xmlhttp;
+	try {
+		xmlhttp = new ActiveXObject("Msxml2.ServerXMLHTTP.6.0");
+		console.log('using that ms thing');
+	} catch (err) {
+		xmlhttp = new XMLHttpRequest();
+	}
 	xmlhttp.open('GET', 'options.json', false);
 	xmlhttp.send();
 

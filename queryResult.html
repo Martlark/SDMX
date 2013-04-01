@@ -8,15 +8,16 @@
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script src="queryResult.js"></script>
         <script>
-            google.load("visualization", "1", {packages: ["corechart"]});
-            dojo.ready(function()
-            {
-                queryResultsInit();
-            });
+			google.load("visualization", "1", {packages: ["corechart"]});
+			dojo.ready(function()
+			{
+				queryResultsInit();
+			});
         </script>
     </head>
 
     <body class="claro">
+		<!--#navigation.html#-->
         <h1 id='h1Title'></h1>
         <br/>
         <input type='text' class="saveQuery" id='query0'  value='#query0#'  style='display:none'/>
@@ -37,6 +38,7 @@
                         <div id="multiButtons" class='hideOnLoad'>
                             <input type='button' value='Redraw' onclick='multiRedraw();' style="float:left;"/>
                             <input type='button'  style="float:left;" id='sliderPlay' onclick="sliderPlayQuery();" value='Play'/>
+                            <label for="xAxis">X Axis value: </label><div id='xAxis'></div>
                             <label for="yAxis">Y Axis value: </label><div id='yAxis'></div>
                             <label for="bubble">Bubble value: </label><div id='bubble'></div>
                             <h3 id='multiInstructions'>Choose from the axis options and click Redraw to show the chart</h3>
@@ -54,12 +56,14 @@
                 </div>
             </div>
 
-
             <div data-dojo-type="dijit/layout/ContentPane" title="Query Results 1" id="tabQueryResults0" >
                 <p id='queryTitle0'></p>
                 <input type="button" value="Save" class='hideOnLoad' onclick="call_create_query();" />
                 <label class='hideOnLoad' for='name'>Query Name:</label><input type='text' class="hideOnLoad saveName saveQuery" id='name'/>
                 <label class='hideOnLoad' for='title0'>Chart Axis Title:</label><input class='hideOnLoad' type='text' id='title0'/>
+				<!--#sharelink.html#-->
+
+				<input type="button" value="export" onclick="exportData(sdmxDataList[0]);"/>
                 <div id="queryResultsGrid0" class='queryResultsGrid'></div>
             </div>
 
@@ -79,6 +83,5 @@
 
         <textarea id="content" style='display:none' class='bigbox'></textarea>
         <textarea id="dataResults" style='display:none' class='bigbox'></textarea>
-
     </body>
 </html>
